@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
+
     private FirebaseAuth mAuth;
     private EditText emailLogin;
     private  EditText passwordLogin;
@@ -33,8 +34,8 @@ public class LoginActivity extends AppCompatActivity {
         //take the file and save in phone
         //sharedPreferences = getPreferences(MODE_PRIVATE);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("MYKEY",0);
-        if(sharedPreferences.getString("KeyEmail",null) != null)
+        SharedPreferences sharedPreferences = getSharedPreferences("LOGKEY",0);
+        if (sharedPreferences.getString("KeyEmail",null) != null)
         {
             // save the last user without Intent
             emailLogin.setText(sharedPreferences.getString("KeyEmail",null));
@@ -45,8 +46,6 @@ public class LoginActivity extends AppCompatActivity {
 
             // click on Login button -> buttonLOGIN.performClick();
         }
-
-
     }
 
     @Override
@@ -71,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                         FirebaseUser user = mAuth.getCurrentUser();
 
-                        SharedPreferences sharedPreferences = getSharedPreferences("MYKEY",0);
+                        SharedPreferences sharedPreferences = getSharedPreferences("LOGKEY",0);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("KeyEmail", email);
                         editor.putString("KeyPassword", password);
@@ -82,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     } else {
                         // If sign in fails, display a message to the user.
-                        Toast.makeText(LoginActivity.this, "Login failed.",
+                        Toast.makeText(LoginActivity.this, "Login failed!",
                                 Toast.LENGTH_LONG).show();
 
                     }

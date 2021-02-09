@@ -63,7 +63,6 @@ public class RegisterActivity extends AppCompatActivity {
                             HashMap<String, Person> map = new HashMap<>();
                             map.put(uid, person);
                             db.collection("Users").add(map);
-
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             startActivity(intent);
 

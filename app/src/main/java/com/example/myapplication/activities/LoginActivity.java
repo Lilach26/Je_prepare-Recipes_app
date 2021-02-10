@@ -83,7 +83,6 @@ public class LoginActivity extends AppCompatActivity {
                         // If sign in fails, display a message to the user.
                         Toast.makeText(LoginActivity.this, "Login failed!",
                                 Toast.LENGTH_LONG).show();
-
                     }
                 });
     }

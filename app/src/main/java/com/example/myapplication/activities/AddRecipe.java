@@ -38,9 +38,8 @@ public class AddRecipe extends AppCompatActivity {
         HashMap<String, String> ingredients = new HashMap<>();
         ingredients.put("Banana", "3");
 
-
-        Recipe recipe = new Recipe("bla", "bla", ingredients, "bla", "bla", "bla");
-        db.collection("Users").document(uid).collection("Recipes").document("Recipe").set(recipe);
+        Recipe recipe = new Recipe("Beef", "bla", ingredients, "bla", "bla", "bla");
+        db.collection("Users").document(uid).collection("Recipes").document(recipe.getRecipeName()).set(recipe);
 
     }
 }

@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, AddRecipe.class);
                     startActivity(intent);
             }
-
             //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selected).commit();
             return true;
         }
@@ -45,16 +44,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void logout_func(View view) {
             //clear all preferences so the user can insert new details
-            SharedPreferences sharedPreferences = getSharedPreferences("MYKEY",0);
+            SharedPreferences sharedPreferences = getSharedPreferences("LOGKEY",0);
             //sharedPreferences = getSharedPreferences("KeyPassword",0);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
             //remove
-            editor.remove("email").apply();
-            editor.remove("password").apply();
+            editor.remove("KeyEmail").apply();
+            editor.remove("KeyPassword").apply();
 
-            editor.clear();
-            editor.commit();
+            //editor.clear();
+            //editor.commit();
 
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);

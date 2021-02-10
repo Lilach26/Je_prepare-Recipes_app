@@ -38,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void RegisterFunc(View view) {
+
         emailEditText = findViewById(R.id.emailEditText);
         String email = emailEditText.getText().toString();
 
@@ -62,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Person person = new Person(name, email);
                             HashMap<String, Person> map = new HashMap<>();
                             map.put(uid, person);
-                            db.collection("Users").add(map);
+                            db.collection("Users").document(uid).set(map);
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             startActivity(intent);
 

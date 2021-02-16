@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".fragments.AddRecipeFragment">
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="180dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="644dp"
+        android:text="Add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/recipeNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="Recipe name"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/descriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/recipeNameText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/recipeNameText"
+        app:layout_constraintTop_toBottomOf="@+id/recipeNameText" />
+
+    <EditText
+        android:id="@+id/ingredientsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:hint="Ingredients"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/descriptionText"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
+
+    <EditText
+        android:id="@+id/stepsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:hint="steps"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/ingredientsText"
+        app:layout_constraintTop_toBottomOf="@+id/ingredientsText" />
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="211dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintStart_toStartOf="@+id/stepsText"
+        app:layout_constraintTop_toBottomOf="@+id/stepsText" />
+
+    <EditText
+        android:id="@+id/imageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:hint="image"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/categorySpinner"
+        app:layout_constraintTop_toBottomOf="@+id/categorySpinner" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

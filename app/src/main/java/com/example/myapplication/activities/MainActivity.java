@@ -11,6 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.myapplication.R;
+import com.example.myapplication.fragments.AddRecipeFragment;
+import com.example.myapplication.fragments.HomeFragment;
+import com.example.myapplication.fragments.SearchFragment;
+import com.example.myapplication.fragments.ShoppingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,39 +28,38 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+            Fragment selected=null;
             switch(item.getItemId())
             {
+                case(R.id.home_item):
+                    selected = new HomeFragment();
+                    break;
                 case(R.id.add_item):
-                    Intent intent = new Intent(MainActivity.this, AddRecipe.class);
-                    startActivity(intent);
+                    selected = new AddRecipeFragment();
+                    break;
+                case(R.id.search_item):
+                    selected = new SearchFragment();
+                    break;
+                case(R.id.shopping_cart_item):
+                    selected = new ShoppingFragment();
+                    break;
             }
-            //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selected).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selected).commit();
             return true;
         }
     };
 
-    public void logout_func(View view) {
-            //clear all preferences so the user can insert new details
-            SharedPreferences sharedPreferences = getSharedPreferences("LOGKEY",0);
-            //sharedPreferences = getSharedPreferences("KeyPassword",0);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-            //remove
-            editor.remove("KeyEmail").apply();
-            editor.remove("KeyPassword").apply();
-
-            //editor.clear();
-            //editor.commit();
-
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-     }
+    public void switchToLogin()
+    {
+        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+        startActivity(intent);
+    }
 
 }

@@ -1,21 +1,21 @@
 package com.example.myapplication.logic;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Recipe
 {
     private String recipeName;
     private String description;
-    private HashMap<String, String> ingredients;
+    private ArrayList<String> ingredients;
     private String steps;
     private String category;
     private String imageUrl;
 
-    public Recipe(String recipeName, String description, HashMap<String, String> ingredients, String steps, String category, String imageUrl)
+    public Recipe(String recipeName, String description, ArrayList<String> ingredients, String steps, String category, String imageUrl)
     {
         this.recipeName = recipeName;
         this.description = description;
-        this.ingredients = new HashMap<String, String>();
+        this.ingredients = new ArrayList<String>();
         this.steps = steps;
         this.category = category;
         this.imageUrl = imageUrl;
@@ -33,7 +33,7 @@ public class Recipe
         return description;
     }
 
-    public HashMap<String, String> getIngredients() {
+    public ArrayList<String> getIngredients() {
         return ingredients;
     }
 
@@ -57,7 +57,7 @@ public class Recipe
         this.description = description;
     }
 
-    public void setIngredients(HashMap<String, String> ingredients) {
+    public void setIngredients(ArrayList<String> ingredients) {
         this.ingredients = ingredients;
     }
 

@@ -9,16 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activities.MainActivity;
-import com.example.myapplication.logic.Recipe;
+import com.example.myapplication.model.Recipe;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,9 +26,13 @@ import java.util.HashMap;
  * create an instance of this fragment.
  */
 public class AddRecipeFragment extends Fragment {
+
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private EditText recipeName, ingredients, steps, description, image;
+    private RadioGroup categoryRadioGroup;
+    private RadioButton beef_btn, dairy_btn, fish_btn, traditional_btn, cocktails_btn, desserts_btn;
+    private String chosenCategory;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -83,6 +87,13 @@ public class AddRecipeFragment extends Fragment {
         ingredients = view.findViewById(R.id.ingredientsText);
         steps = view.findViewById(R.id.stepsText);
         image = view.findViewById(R.id.imageText);
+        categoryRadioGroup = view.findViewById(R.id.categoryRadioGroup);
+        beef_btn = view.findViewById(R.id.beef_button);
+        dairy_btn = view.findViewById(R.id.dairy_button);
+        fish_btn = view.findViewById(R.id.fish_button);
+        traditional_btn = view.findViewById(R.id.traditional_button);
+        cocktails_btn = view.findViewById(R.id.cocktails_button);
+        desserts_btn = view.findViewById(R.id.desserts_button);
 
         String recipeNameStr = recipeName.getText().toString();
         String descriptionStr = description.getText().toString();
@@ -90,29 +101,59 @@ public class AddRecipeFragment extends Fragment {
         String stepsStr = steps.getText().toString();
         String imageStr = image.getText().toString();
 
+        categoryRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                switch (checkedId)
+                {
+                    case R.id.beef_button:
+                        chosenCategory = beef_btn.getText().toString();
+                        break;
+                    case R.id.dairy_button:
+                        chosenCategory = dairy_btn.getText().toString();
+                        break;
+                    case R.id.fish_button:
+                        chosenCategory = fish_btn.getText().toString();
+                        break;
+                    case R.id.traditional_button:
+                        chosenCategory = traditional_btn.getText().toString();
+                        break;
+                    case R.id.cocktails_button:
+                        chosenCategory = cocktails_btn.getText().toString();
+                        break;
+                    case R.id.desserts_button:
+                        chosenCategory = desserts_btn.getText().toString();
+                        break;
+                }
+            }
+        });
+
         Button addButton = view.findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 FirebaseUser user = mAuth.getCurrentUser();
                 String uid = user.getUid();
-                ArrayList<String> ingredients = new ArrayList<>();
+                ArrayList<String> ingredients = splitIngredients(ingredientsStr);
 
-                //split the ingredients by ,
-                //and to add to arraylist
-                ingredients.add(ingredientsStr);
-
-                //make spinner work for category
-                Recipe recipe = new Recipe(recipeNameStr, descriptionStr, ingredients, stepsStr, "bla", "image");
-                //update the category that user chose
-                db.collection("Users").document(uid).collection("category").document(recipe.getRecipeName()).set(recipe);
-
+                Recipe recipe = new Recipe(recipeNameStr, descriptionStr, ingredients, stepsStr, chosenCategory, imageStr);
+                db.collection("Users").document(uid).collection(chosenCategory).document(recipe.getRecipeName()).set(recipe);
             }
         });
         return view;
-
     }
 
+    //this function gets a string of ingredients, separated by "," and insert each element to array list of ingredients
+    public ArrayList<String> splitIngredients(String ingredients)
+    {
+        String[] arrayOfIngredients = ingredients.split(",");
+        ArrayList<String> splitIngredients = new ArrayList<>();
+
+        for (int i = 0; i < arrayOfIngredients.length; i++)
+        {
+            splitIngredients.add(arrayOfIngredients[i]);
+        }
+        return splitIngredients;
+    }
 }

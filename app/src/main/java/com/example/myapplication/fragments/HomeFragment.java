@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,24 +13,26 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activities.LoginActivity;
+import com.example.myapplication.activities.BeefActivity;
+import com.example.myapplication.activities.CocktailsActivity;
+import com.example.myapplication.activities.DairtActivity;
+import com.example.myapplication.activities.DessertsActivity;
+import com.example.myapplication.activities.FishActivity;
 import com.example.myapplication.activities.MainActivity;
-import com.example.myapplication.logic.Recipe;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.HashMap;
+import com.example.myapplication.activities.TraditionalActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private CardView beefCard, dairyCard, fishCard, traditionalCard, cocktailsCard, dessertsCard;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -72,6 +75,21 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         Button logoutButton = view.findViewById(R.id.logOutButton);
+
+        beefCard = (CardView) view.findViewById(R.id.beef_card);
+        dairyCard = (CardView) view.findViewById(R.id.dairy_card);
+        fishCard = (CardView) view.findViewById(R.id.fish_card);
+        traditionalCard = (CardView) view.findViewById(R.id.traditional_card);
+        cocktailsCard = (CardView) view.findViewById(R.id.cocktails_card);
+        dessertsCard = (CardView) view.findViewById(R.id.desserts_card);
+
+        beefCard.setOnClickListener(this);
+        dairyCard.setOnClickListener(this);
+        fishCard.setOnClickListener(this);
+        traditionalCard.setOnClickListener(this);
+        cocktailsCard.setOnClickListener(this);
+        dessertsCard.setOnClickListener(this);
+
         logoutButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -85,7 +103,6 @@ public class HomeFragment extends Fragment {
                 editor.remove("KeyEmail").apply();
                 editor.remove("KeyPassword").apply();
 
-
                 MainActivity mainActivity = (MainActivity) getActivity();
                 mainActivity.switchToLogin();
 
@@ -93,5 +110,33 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = null;
+
+        switch (v.getId())
+        {
+            case R.id.beef_card:
+                intent = new Intent(getActivity(), BeefActivity.class);
+                break;
+            case R.id.dairy_card:
+                intent = new Intent(getActivity(), DairtActivity.class);
+                break;
+            case R.id.fish_card:
+                intent = new Intent(getActivity(), FishActivity.class);
+                break;
+            case R.id.traditional_card:
+                intent = new Intent(getActivity(), TraditionalActivity.class);
+                break;
+            case R.id.cocktails_card:
+                intent = new Intent(getActivity(), CocktailsActivity.class);
+                break;
+            case R.id.desserts_card:
+                intent = new Intent(getActivity(), DessertsActivity.class);
+                break;
+        }
+        startActivity(intent);
     }
 }

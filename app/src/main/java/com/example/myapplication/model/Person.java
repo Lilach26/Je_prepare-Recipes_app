@@ -1,4 +1,4 @@
-package com.example.myapplication.logic;
+package com.example.myapplication.model;
 
 public class Person
 {

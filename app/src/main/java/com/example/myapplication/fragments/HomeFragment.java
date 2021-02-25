@@ -13,13 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activities.BeefActivity;
-import com.example.myapplication.activities.CocktailsActivity;
-import com.example.myapplication.activities.DairtActivity;
-import com.example.myapplication.activities.DessertsActivity;
-import com.example.myapplication.activities.FishActivity;
 import com.example.myapplication.activities.MainActivity;
-import com.example.myapplication.activities.TraditionalActivity;
+import com.example.myapplication.activities.RecyclerViewActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +28,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private CardView beefCard, dairyCard, fishCard, traditionalCard, cocktailsCard, dessertsCard;
+    private String chosenCard;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -114,29 +110,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        Intent intent = null;
 
         switch (v.getId())
         {
             case R.id.beef_card:
-                intent = new Intent(getActivity(), BeefActivity.class);
+                chosenCard = "Beef";
                 break;
             case R.id.dairy_card:
-                intent = new Intent(getActivity(), DairtActivity.class);
+                chosenCard = "Dairy";
                 break;
             case R.id.fish_card:
-                intent = new Intent(getActivity(), FishActivity.class);
+                chosenCard = "Fish";
                 break;
             case R.id.traditional_card:
-                intent = new Intent(getActivity(), TraditionalActivity.class);
+                chosenCard = "Traditional";
                 break;
             case R.id.cocktails_card:
-                intent = new Intent(getActivity(), CocktailsActivity.class);
+                chosenCard = "Cocktails";
                 break;
             case R.id.desserts_card:
-                intent = new Intent(getActivity(), DessertsActivity.class);
+                chosenCard = "Desserts";
                 break;
         }
+        Intent intent = new Intent(getActivity(), RecyclerViewActivity.class);
         startActivity(intent);
     }
 }

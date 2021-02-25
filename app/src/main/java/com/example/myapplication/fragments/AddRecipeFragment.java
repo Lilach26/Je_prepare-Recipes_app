@@ -11,8 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activities.RegisterActivity;
 import com.example.myapplication.model.Recipe;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -95,11 +97,7 @@ public class AddRecipeFragment extends Fragment {
         cocktails_btn = view.findViewById(R.id.cocktails_button);
         desserts_btn = view.findViewById(R.id.desserts_button);
 
-        String recipeNameStr = recipeName.getText().toString();
-        String descriptionStr = description.getText().toString();
-        String ingredientsStr = ingredients.getText().toString();
-        String stepsStr = steps.getText().toString();
-        String imageStr = image.getText().toString();
+
 
         categoryRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -135,10 +133,17 @@ public class AddRecipeFragment extends Fragment {
             public void onClick(View v) {
                 FirebaseUser user = mAuth.getCurrentUser();
                 String uid = user.getUid();
+                String ingredientsStr = ingredients.getText().toString();
                 ArrayList<String> ingredients = splitIngredients(ingredientsStr);
+
+                String recipeNameStr = recipeName.getText().toString();
+                String descriptionStr = description.getText().toString();
+                String stepsStr = steps.getText().toString();
+                String imageStr = image.getText().toString();
 
                 Recipe recipe = new Recipe(recipeNameStr, descriptionStr, ingredients, stepsStr, chosenCategory, imageStr);
                 db.collection("Users").document(uid).collection(chosenCategory).document(recipe.getRecipeName()).set(recipe);
+                Toast.makeText(getActivity(), "Recipe added successfully!", Toast.LENGTH_SHORT).show();
             }
         });
         return view;

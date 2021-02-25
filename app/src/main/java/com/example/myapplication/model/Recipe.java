@@ -15,7 +15,7 @@ public class Recipe
     {
         this.recipeName = recipeName;
         this.description = description;
-        this.ingredients = new ArrayList<String>();
+        this.ingredients = ingredients;
         this.steps = steps;
         this.category = category;
         this.imageUrl = imageUrl;

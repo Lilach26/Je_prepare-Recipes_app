@@ -89,6 +89,7 @@ public class AddRecipeFragment extends Fragment {
         ingredients = view.findViewById(R.id.ingredientsText);
         steps = view.findViewById(R.id.stepsText);
         image = view.findViewById(R.id.imageText);
+
         categoryRadioGroup = view.findViewById(R.id.categoryRadioGroup);
         beef_btn = view.findViewById(R.id.beef_button);
         dairy_btn = view.findViewById(R.id.dairy_button);
@@ -96,8 +97,6 @@ public class AddRecipeFragment extends Fragment {
         traditional_btn = view.findViewById(R.id.traditional_button);
         cocktails_btn = view.findViewById(R.id.cocktails_button);
         desserts_btn = view.findViewById(R.id.desserts_button);
-
-
 
         categoryRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

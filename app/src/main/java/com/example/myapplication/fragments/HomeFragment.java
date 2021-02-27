@@ -133,6 +133,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 break;
         }
         Intent intent = new Intent(getActivity(), RecyclerViewActivity.class);
+        intent.putExtra("categoryNameKey", chosenCard);
         startActivity(intent);
     }
 }

@@ -16,12 +16,18 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.model.Recipe;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +42,7 @@ public class ShoppingFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
+    private Map<String, Object> ingredientsObj;
     private ArrayList<String> ingredientsArrayList;
     private ArrayAdapter<String> adapter;
     private Button addIngredientsBtn;
@@ -82,14 +89,13 @@ public class ShoppingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shopping, container, false);
-        db = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
 
         ingredientsArrayList = new ArrayList<>();
+        ingredientsObj = new HashMap<>();
+        readFromDB();
         addIngredientsBtn = view.findViewById(R.id.addIngredientToListBtn);
         ingredientsInput = view.findViewById(R.id.ingredientInputText);
         ingredientsListView = view.findViewById(R.id.ingredientsListView);
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_multiple_choice, ingredientsArrayList);
 
         //add items to list view
         addIngredientsBtn.setOnClickListener(new View.OnClickListener() {
@@ -97,29 +103,31 @@ public class ShoppingFragment extends Fragment {
             public void onClick(View v) {
                 FirebaseUser user = mAuth.getCurrentUser();
                 String uid = user.getUid();
-                HashMap<String, String> ingredientsObj = new HashMap<>();
-                ingredientsArrayList.add(ingredientsInput.getText().toString());
                 ingredientsObj.put(ingredientsInput.getText().toString(), "");
                 db.collection("Users").document(uid).collection("Shopping List").document("Ingredients").set(ingredientsObj);
                 ingredientsInput.setText("");
-                adapter.notifyDataSetChanged();
+                ingredientsArrayList = convertHashToArray(ingredientsObj);
+                adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_multiple_choice, ingredientsArrayList);
+                ingredientsListView.setAdapter(adapter);
             }
         });
-
-        ingredientsListView.setAdapter(adapter);
 
         //remove items from list view
         ingredientsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 SparseBooleanArray checkedItems = ingredientsListView.getCheckedItemPositions();
+                FirebaseUser user = mAuth.getCurrentUser();
+                String uid = user.getUid();
                 int count = ingredientsListView.getCount();
 
-                for (int i = count - 1; i >= 0; i--)
+                for (int i = 0; i < count; i++)
                 {
                     if (checkedItems.get(i))
                     {
+                        ingredientsObj.remove(ingredientsArrayList.get(i));
                         adapter.remove(ingredientsArrayList.remove(i));
+                        db.collection("Users").document(uid).collection("Shopping List").document("Ingredients").set(ingredientsObj);
                         Toast.makeText(getActivity(), "Item deleted Successfully", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -132,5 +140,35 @@ public class ShoppingFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void readFromDB()
+    {
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String uid = user.getUid();
+        db.collection("Users").document(uid).collection("Shopping List").document("Ingredients")
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot)
+            {
+                ingredientsObj = documentSnapshot.getData();
+                ingredientsArrayList = convertHashToArray(ingredientsObj);
+                adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_multiple_choice, ingredientsArrayList);
+                ingredientsListView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    public ArrayList<String> convertHashToArray(Map<String, Object> a)
+    {
+        ArrayList<String> temp = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : a.entrySet())
+        {
+            temp.add(entry.getKey());
+        }
+        return temp;
     }
 }

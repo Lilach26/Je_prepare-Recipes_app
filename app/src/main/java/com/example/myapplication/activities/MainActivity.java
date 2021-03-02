@@ -2,17 +2,16 @@ package com.example.myapplication.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.myapplication.R;
 import com.example.myapplication.fragments.AddRecipeFragment;
 import com.example.myapplication.fragments.HomeFragment;
+import com.example.myapplication.fragments.InternetFragment;
 import com.example.myapplication.fragments.SearchFragment;
 import com.example.myapplication.fragments.ShoppingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -44,8 +43,11 @@ public class MainActivity extends AppCompatActivity {
                 case(R.id.add_item):
                     selected = new AddRecipeFragment();
                     break;
-                case(R.id.search_item):
+                case (R.id.search_item):
                     selected = new SearchFragment();
+                    break;
+                case(R.id.internet_item):
+                    selected = new InternetFragment();
                     break;
                 case(R.id.shopping_cart_item):
                     selected = new ShoppingFragment();

@@ -17,6 +17,11 @@
         android:title="Search"/>
 
     <item
+        android:id="@+id/internet_item"
+        android:icon="@drawable/ic_internet"
+        android:title="Web's Favorites"/>
+
+    <item
         android:id="@+id/shopping_cart_item"
         android:icon="@drawable/ic_shopping_cart"
         android:title="Shopping List"/>

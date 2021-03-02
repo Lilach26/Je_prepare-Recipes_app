@@ -1,11 +1,16 @@
 package com.example.myapplication.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
@@ -64,5 +69,22 @@ public class RecyclerViewActivity extends AppCompatActivity {
                         recipeAdapter.notifyDataSetChanged();
                     }
                 });
+
+        //function that deletes item from recipes recycler view, and update data inside fire-store db
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction)
+            {
+                recipesArrayList.remove(viewHolder.getAdapterPosition());
+                recipeAdapter.notifyDataSetChanged();
+
+            }
+        }).attachToRecyclerView(recipesRecyclerView);
     }
+
 }

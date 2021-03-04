@@ -2,7 +2,9 @@ package com.example.myapplication.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activities.RecyclerViewActivity;
 import com.example.myapplication.adapters.InternetAdapter;
 import com.example.myapplication.model.Internet;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,8 +36,8 @@ import java.util.Map;
  * Use the {@link InternetFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InternetFragment extends Fragment {
-
+public class InternetFragment extends Fragment
+{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -112,6 +116,28 @@ public class InternetFragment extends Fragment {
             }
         });
 
+        //function that deletes item from internet recycler view, and update data inside fire-store db
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction)
+            {
+                FirebaseUser user = mAuth.getCurrentUser();
+                String uid = user.getUid();
+
+                String linkForDelete = internetArrayList.get(viewHolder.getAdapterPosition()).getName();
+                internetMap.remove(linkForDelete);
+
+                db.collection("Users").document(uid).collection("Internet Links").document("Links").set(internetMap);
+                internetArrayList = convertHashToArray(internetMap);
+                internetRecyclerView.setAdapter(new InternetAdapter(internetArrayList));
+            }
+        }).attachToRecyclerView(internetRecyclerView);
+
         return view;
     }
 
@@ -126,7 +152,6 @@ public class InternetFragment extends Fragment {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot)
             {
-
                 internetMap = documentSnapshot.getData();
                 internetArrayList = convertHashToArray(internetMap);
                 internetRecyclerView.setAdapter(new InternetAdapter(internetArrayList));
@@ -140,14 +165,11 @@ public class InternetFragment extends Fragment {
         for (Map.Entry<String, Object> entry : a.entrySet())
         {
             Map<String, Object> value = (Map<String, Object>) entry.getValue();
-
-                Map<String, Map> internetTempMap = (Map<String, Map>) entry.getValue();
-                String name = value.get("name").toString();
-                String description = value.get("description").toString();
-                String url = value.get("url").toString();
-                Internet i = new Internet(name,description,url);
-                temp.add(i);
-
+            String name = value.get("name").toString();
+            String description = value.get("description").toString();
+            String url = value.get("url").toString();
+            Internet i = new Internet(name, description, url);
+            temp.add(i);
         }
         return temp;
     }

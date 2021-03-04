@@ -16,24 +16,24 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity {
-
+public class LoginActivity extends AppCompatActivity
+{
     private FirebaseAuth mAuth;
     private EditText emailLogin;
-    private  EditText passwordLogin;
+    private EditText passwordLogin;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        mAuth = FirebaseAuth.getInstance();
-
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        mAuth = FirebaseAuth.getInstance();
         emailLogin = findViewById(R.id.emailLogin);
         passwordLogin = findViewById(R.id.passwordLogin);
+
         //take the file and save in phone
         //sharedPreferences = getPreferences(MODE_PRIVATE);
-
         SharedPreferences sharedPreferences = getSharedPreferences("LOGKEY",0);
         if (sharedPreferences.getString("KeyEmail",null) != null)
         {
@@ -43,8 +43,6 @@ public class LoginActivity extends AppCompatActivity {
 
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
-
-            // click on Login button -> buttonLOGIN.performClick();
         }
     }
 
@@ -55,7 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
-    public void LoginFunc(View view) {
+    public void LoginFunc(View view)
+    {
         emailLogin = findViewById(R.id.emailLogin);
         String email = emailLogin.getText().toString();
 
@@ -70,12 +69,14 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                         FirebaseUser user = mAuth.getCurrentUser();
 
+                        //shared preference for keeping user logged, even if he closes the application
                         SharedPreferences sharedPreferences = getSharedPreferences("LOGKEY",0);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("KeyEmail", email);
                         editor.putString("KeyPassword", password);
                         editor.apply();
 
+                        //if login success, switch to MainActivity activity
                         Intent intent = new Intent (LoginActivity.this, MainActivity.class);
                         startActivity(intent);
 
@@ -87,7 +88,9 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    public void MoveToRegister(View view) {
+    //function for clicking the button "Register" in main login, switching the RegisterActivity activity
+    public void MoveToRegister(View view)
+    {
         Intent intent = new Intent (LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
     }

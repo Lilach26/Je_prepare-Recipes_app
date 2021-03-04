@@ -6,9 +6,7 @@ public class Internet
     private String description;
     private String url;
 
-    public Internet()
-    {
-    }
+    public Internet() {}
 
     public Internet(String name, String description, String url)
     {

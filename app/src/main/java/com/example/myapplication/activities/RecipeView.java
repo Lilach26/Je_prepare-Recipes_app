@@ -8,8 +8,10 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 
-public class RecipeView extends AppCompatActivity {
+import java.util.ArrayList;
 
+public class RecipeView extends AppCompatActivity
+{
     private TextView namePreview, descriptionPreview, ingredientsPreview, stepPreview, categoryPreview;
 
     @Override
@@ -23,6 +25,7 @@ public class RecipeView extends AppCompatActivity {
         stepPreview = findViewById(R.id.stepsPreview);
         categoryPreview = findViewById(R.id.categoryPreview);
 
+        //get intent "putExtra" keys, for displaying each recipe's details
         Intent intent = getIntent();
         namePreview.setText(intent.getStringExtra("nameKey"));
         descriptionPreview.setText(intent.getStringExtra("descriptionKey"));

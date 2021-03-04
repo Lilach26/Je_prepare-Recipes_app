@@ -33,8 +33,8 @@ import java.util.Map;
  * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SearchFragment extends Fragment {
-
+public class SearchFragment extends Fragment
+{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -90,6 +90,7 @@ public class SearchFragment extends Fragment {
         categoryInput = view.findViewById(R.id.categoryInput);
         searchButton = view.findViewById(R.id.searchButton);
         resultsTextView = view.findViewById(R.id.resultTextView);
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -111,6 +112,7 @@ public class SearchFragment extends Fragment {
                                 Recipe recipe = document.toObject(Recipe.class);
                                 ingredientsForRecipe.put(recipe.getRecipeName(),recipe.getIngredients());
                             }
+
                             String ingredientsStr = ingredientsInput.getText().toString();
                             String[] arrayOfIngredientsSearch = ingredientsStr.split(",");
                             ArrayList<String> splitIngredientsSearch = new ArrayList<>();
@@ -125,15 +127,16 @@ public class SearchFragment extends Fragment {
                             for (Map.Entry<String,ArrayList<String>> entry : ingredientsForRecipe.entrySet())
                             {
                                 ArrayList<String> temp = entry.getValue();
-                                if(temp.retainAll(splitIngredientsSearch))
+                                if (temp.retainAll(splitIngredientsSearch))
                                 {
-                                    if(!temp.isEmpty()) {
+                                    if (!temp.isEmpty())
+                                    {
                                         resultsTextView.setText(resultsTextView.getText().toString() + "\n" + entry.getKey());
                                         flag = true;
                                     }
                                 }
                             }
-                            if(!flag)
+                            if (!flag)
                             {
                                 resultsTextView.setText("not found");
                             }

@@ -60,9 +60,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     Intent intent = new Intent(v.getContext(), RecipeView.class);
                     intent.putExtra("nameKey", recipesArray.get(getAdapterPosition()).getRecipeName());
                     intent.putExtra("descriptionKey", recipesArray.get(getAdapterPosition()).getDescription());
-                    intent.putExtra("ingredientsKey", recipesArray.get(getAdapterPosition()).getIngredients());
                     intent.putExtra("stepsKey", recipesArray.get(getAdapterPosition()).getSteps());
                     intent.putExtra("categoryKey", recipesArray.get(getAdapterPosition()).getCategory());
+
+                    String ingredients = "";
+                    for (String iterate : recipesArray.get(getAdapterPosition()).getIngredients())
+                    {
+                        ingredients += iterate + "\n";
+                    }
+
+                    intent.putExtra("ingredientsKey", ingredients);
                     v.getContext().startActivity(intent);
                 }
             });

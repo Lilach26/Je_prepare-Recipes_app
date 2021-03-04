@@ -1,5 +1,7 @@
 package com.example.myapplication.adapters;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +53,15 @@ public class InternetAdapter extends RecyclerView.Adapter<InternetAdapter.Intern
         public InternetViewHolder(@NonNull View itemView)
         {
             super(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(internetArrayList.get(getAdapterPosition()).getUrl()));
+                    v.getContext().startActivity(intent);
+                }
+            });
+
             linkName = itemView.findViewById(R.id.linkNameRow);
             linkDescription = itemView.findViewById(R.id.linkDescriptionRow);
         }

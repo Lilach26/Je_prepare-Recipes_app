@@ -20,10 +20,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity
+{
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
-
     private EditText emailEditText;
     private  EditText passwordEditText;
     private EditText nameEditText;
@@ -37,8 +37,9 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
     }
 
-    public void RegisterFunc(View view) {
-
+    public void RegisterFunc(View view)
+    {
+        //get input from user, and convert it to string for saving it into objects
         emailEditText = findViewById(R.id.emailEditText);
         String email = emailEditText.getText().toString();
 
@@ -60,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             String uid = user.getUid();
 
+                            //get user registration info, save if as person object and push it fire store database
                             Person person = new Person(name, email);
                             HashMap<String, Person> map = new HashMap<>();
                             map.put(uid, person);
@@ -73,7 +75,6 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "Register failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
     }

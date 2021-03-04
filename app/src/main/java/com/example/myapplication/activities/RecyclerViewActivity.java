@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.RecipeAdapter;
@@ -26,8 +27,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewActivity extends AppCompatActivity {
-
+public class RecyclerViewActivity extends AppCompatActivity
+{
     private String chosenCategory;
     private ArrayList<Recipe> recipesArrayList;
     private RecyclerView recipesRecyclerView;
@@ -53,24 +54,29 @@ public class RecyclerViewActivity extends AppCompatActivity {
         recipesRecyclerView.setAdapter(recipeAdapter);
 
         Intent intent = getIntent();
+        //getting intent string extra, to find out which category the user chose (in cardView), and accordingly retrieve all the recipes
         chosenCategory = intent.getStringExtra("categoryNameKey");
 
+        //function to get all documents of a specific collection
         db.collection("Users").document(uid).collection(chosenCategory).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots)
                     {
+                        //save list of documents
                         List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                         for (DocumentSnapshot documentSnapshot : list)
                         {
+                            //convert each document to recipe object, so we can add it to recipe's arrayList
                             Recipe obj = documentSnapshot.toObject(Recipe.class);
                             recipesArrayList.add(obj);
                         }
+                        //Notify adapter for the changes that have made
                         recipeAdapter.notifyDataSetChanged();
                     }
                 });
 
-        //function that deletes item from recipes recycler view, and update data inside fire-store db
+        //function that deletes item from recipes recycler view, and update data inside fire-store db, onMove irrelevant for us
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -80,11 +86,19 @@ public class RecyclerViewActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction)
             {
+                //save the document for delete to string, so we can get to it and delete it
+                String documentForDelete = recipesArrayList.get(viewHolder.getAdapterPosition()).getRecipeName();
+                db.collection("Users").document(uid).collection(chosenCategory).document(documentForDelete)
+                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid)
+                    {
+                        Toast.makeText(RecyclerViewActivity.this, "Recipe deleted successfully", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 recipesArrayList.remove(viewHolder.getAdapterPosition());
                 recipeAdapter.notifyDataSetChanged();
-
             }
         }).attachToRecyclerView(recipesRecyclerView);
     }
-
 }

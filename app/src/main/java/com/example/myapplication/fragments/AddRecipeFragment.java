@@ -27,11 +27,11 @@ import java.util.ArrayList;
  * Use the {@link AddRecipeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddRecipeFragment extends Fragment {
-
+public class AddRecipeFragment extends Fragment
+{
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
-    private EditText recipeName, ingredients, steps, description, image;
+    private EditText recipeName, ingredients, steps, description;
     private RadioGroup categoryRadioGroup;
     private RadioButton beef_btn, dairy_btn, fish_btn, traditional_btn, cocktails_btn, desserts_btn;
     private String chosenCategory;
@@ -88,7 +88,6 @@ public class AddRecipeFragment extends Fragment {
         description = view.findViewById(R.id.descriptionText);
         ingredients = view.findViewById(R.id.ingredientsText);
         steps = view.findViewById(R.id.stepsText);
-        image = view.findViewById(R.id.imageText);
 
         categoryRadioGroup = view.findViewById(R.id.categoryRadioGroup);
         beef_btn = view.findViewById(R.id.beef_button);
@@ -138,9 +137,8 @@ public class AddRecipeFragment extends Fragment {
                 String recipeNameStr = recipeName.getText().toString();
                 String descriptionStr = description.getText().toString();
                 String stepsStr = steps.getText().toString();
-                String imageStr = image.getText().toString();
 
-                Recipe recipe = new Recipe(recipeNameStr, descriptionStr, ingredients, stepsStr, chosenCategory, imageStr);
+                Recipe recipe = new Recipe(recipeNameStr, descriptionStr, ingredients, stepsStr, chosenCategory);
                 db.collection("Users").document(uid).collection(chosenCategory).document(recipe.getRecipeName()).set(recipe);
                 Toast.makeText(getActivity(), "Recipe added successfully!", Toast.LENGTH_SHORT).show();
             }

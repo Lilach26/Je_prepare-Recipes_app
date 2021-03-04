@@ -9,20 +9,16 @@ public class Recipe
     private ArrayList<String> ingredients;
     private String steps;
     private String category;
-    private String imageUrl;
 
-    public Recipe(String recipeName, String description, ArrayList<String> ingredients, String steps, String category, String imageUrl)
+    public Recipe() {}
+
+    public Recipe(String recipeName, String description, ArrayList<String> ingredients, String steps, String category)
     {
         this.recipeName = recipeName;
         this.description = description;
         this.ingredients = ingredients;
         this.steps = steps;
         this.category = category;
-        this.imageUrl = imageUrl;
-    }
-
-    public Recipe()
-    {
     }
 
     public String getRecipeName() {
@@ -45,10 +41,6 @@ public class Recipe
         return category;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
     public void setRecipeName(String recipeName) {
         this.recipeName = recipeName;
     }
@@ -63,10 +55,6 @@ public class Recipe
 
     public void setSteps(String steps) {
         this.steps = steps;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public void setCategory(String category) {

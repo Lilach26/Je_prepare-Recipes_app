@@ -9,7 +9,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/main_background">
 
         <Button
             android:id="@+id/logOutButton"
@@ -17,18 +18,25 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="160dp"
             android:layout_marginTop="644dp"
+            android:background="@drawable/button_style"
             android:text="Logout"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/myRecipesTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My Recipes"
-            android:textSize="30sp"
-            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:text="Recipes Categories"
             android:textColor="@color/black"
-            android:layout_margin="12dp"/>
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <GridLayout
             android:layout_width="331dp"
@@ -51,28 +59,29 @@
                 android:layout_columnWeight="1"
                 android:layout_gravity="fill"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
                 android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="98dp"
+                    android:layout_height="103dp"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_add" />
+                        android:layout_width="68dp"
+                        android:layout_height="67dp"
+                        android:src="@drawable/meat_ic" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Beef"
                         android:textAlignment="center"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -88,28 +97,29 @@
                 android:layout_columnWeight="1"
                 android:layout_gravity="fill"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
                 android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="98dp"
+                    android:layout_height="103dp"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="67dp"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_home" />
+                        android:src="@drawable/milk_ic" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Dairy"
                         android:textAlignment="center"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -125,28 +135,29 @@
                 android:layout_columnWeight="1"
                 android:layout_gravity="fill"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
                 android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="98dp"
+                    android:layout_height="103dp"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_search" />
+                        android:layout_width="67dp"
+                        android:layout_height="67dp"
+                        android:src="@drawable/fish_ic" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Fish"
                         android:textAlignment="center"
+                        android:textSize="20dp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -163,28 +174,29 @@
                 android:layout_columnWeight="1"
                 android:layout_gravity="fill"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
                 android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="98dp"
+                    android:layout_height="103dp"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_search" />
+                        android:layout_width="67dp"
+                        android:layout_height="67dp"
+                        android:src="@drawable/traditional_ic" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Traditional"
                         android:textAlignment="center"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -201,28 +213,29 @@
                 android:layout_columnWeight="1"
                 android:layout_gravity="fill"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
                 android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="81dp"
+                    android:layout_height="80dp"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_exit" />
+                        android:layout_width="68dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/cocktail_ic" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Cocktails"
                         android:textAlignment="center"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -239,15 +252,14 @@
                 android:layout_columnWeight="1"
                 android:layout_gravity="fill"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
-                >
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="98dp"
+                    android:layout_height="103dp"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -255,13 +267,14 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_shopping_cart" />
+                        android:src="@drawable/dessert_ic" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Desserts"
                         android:textAlignment="center"
+                        android:textSize="20dp"
                         android:textStyle="bold" />
                 </LinearLayout>
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_background"
     tools:context=".activities.LoginActivity">
 
     <EditText
@@ -41,9 +42,12 @@
         android:layout_width="200dp"
         android:layout_height="54dp"
         android:layout_marginTop="36dp"
+        android:background="@drawable/button_style"
         android:onClick="LoginFunc"
         android:text="Login"
         android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/passwordLogin"
         app:layout_constraintStart_toStartOf="@+id/passwordLogin"
         app:layout_constraintTop_toBottomOf="@+id/passwordLogin" />
@@ -53,9 +57,12 @@
         android:layout_width="200dp"
         android:layout_height="54dp"
         android:layout_marginTop="28dp"
+        android:background="@drawable/button_style"
         android:onClick="MoveToRegister"
         android:text="Register"
         android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/loginButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/loginButton"

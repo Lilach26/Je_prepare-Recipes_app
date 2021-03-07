@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_background"
     tools:context=".activities.RegisterActivity">
 
     <EditText
@@ -64,9 +65,12 @@
         android:layout_width="200dp"
         android:layout_height="54dp"
         android:layout_marginTop="40dp"
+        android:background="@drawable/button_style"
         android:onClick="RegisterFunc"
         android:text="Register"
         android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/confirmPassEditText"
         app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="@+id/confirmPassEditText"
@@ -77,8 +81,11 @@
         android:layout_width="200dp"
         android:layout_height="54dp"
         android:layout_marginTop="32dp"
+        android:background="@drawable/button_style"
         android:text="Back to Login"
         android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/RegisterButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/RegisterButton"

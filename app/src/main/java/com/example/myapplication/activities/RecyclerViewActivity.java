@@ -54,10 +54,10 @@ public class RecyclerViewActivity extends AppCompatActivity
         recipesRecyclerView.setAdapter(recipeAdapter);
 
         Intent intent = getIntent();
-        //getting intent string extra, to find out which category the user chose (in cardView), and accordingly retrieve all the recipes
+        //getting intent string extra from homeFragment, to find out which category the user chose (in cardView), and accordingly retrieve all the recipes
         chosenCategory = intent.getStringExtra("categoryNameKey");
 
-        //function to get all documents of a specific collection
+        //function to get all documents of a specific category collection
         db.collection("Users").document(uid).collection(chosenCategory).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override

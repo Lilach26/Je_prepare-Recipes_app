@@ -121,6 +121,9 @@ public class AddRecipeFragment extends Fragment
                     case R.id.desserts_button:
                         chosenCategory = desserts_btn.getText().toString();
                         break;
+                    default:
+                        chosenCategory=null;
+                        break;
                 }
             }
         });
@@ -138,9 +141,16 @@ public class AddRecipeFragment extends Fragment
                 String descriptionStr = description.getText().toString();
                 String stepsStr = steps.getText().toString();
 
-                Recipe recipe = new Recipe(recipeNameStr, descriptionStr, ingredients, stepsStr, chosenCategory);
-                db.collection("Users").document(uid).collection(chosenCategory).document(recipe.getRecipeName()).set(recipe);
-                Toast.makeText(getActivity(), "Recipe added successfully!", Toast.LENGTH_SHORT).show();
+                if(!recipeNameStr.equals("") && !descriptionStr.equals("") && !stepsStr.equals("") && !ingredientsStr.equals("") && chosenCategory != null)
+                {
+                    Recipe recipe = new Recipe(recipeNameStr, descriptionStr, ingredients, stepsStr, chosenCategory);
+                    db.collection("Users").document(uid).collection(chosenCategory).document(recipe.getRecipeName()).set(recipe);
+                    Toast.makeText(getActivity(), "Recipe added successfully!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "Fill all fields", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return view;

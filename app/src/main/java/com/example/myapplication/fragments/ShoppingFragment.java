@@ -103,12 +103,20 @@ public class ShoppingFragment extends Fragment
             public void onClick(View v) {
                 FirebaseUser user = mAuth.getCurrentUser();
                 String uid = user.getUid();
-                ingredientsObj.put(ingredientsInput.getText().toString(), "");
-                db.collection("Users").document(uid).collection("Shopping List").document("Ingredients").set(ingredientsObj);
-                ingredientsInput.setText("");
-                ingredientsArrayList = convertHashToArray(ingredientsObj);
-                adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_multiple_choice, ingredientsArrayList);
-                ingredientsListView.setAdapter(adapter);
+                if (!ingredientsInput.getText().toString().equals(""))
+                {
+                    ingredientsObj.put(ingredientsInput.getText().toString(), "");
+                    db.collection("Users").document(uid).collection("Shopping List").document("Ingredients").set(ingredientsObj);
+                    ingredientsInput.setText("");
+                    ingredientsArrayList = convertHashToArray(ingredientsObj);
+                    adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_multiple_choice, ingredientsArrayList);
+                    ingredientsListView.setAdapter(adapter);
+                }
+                
+                else
+                {
+                    Toast.makeText(getActivity(),"Please input product",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -162,10 +170,10 @@ public class ShoppingFragment extends Fragment
         });
     }
 
-    public ArrayList<String> convertHashToArray(Map<String, Object> a)
+    public ArrayList<String> convertHashToArray(Map<String, Object> map)
     {
         ArrayList<String> temp = new ArrayList<>();
-        for (Map.Entry<String, Object> entry : a.entrySet())
+        for (Map.Entry<String, Object> entry : map.entrySet())
         {
             temp.add(entry.getKey());
         }

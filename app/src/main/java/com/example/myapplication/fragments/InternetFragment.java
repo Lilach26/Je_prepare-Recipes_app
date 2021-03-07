@@ -106,13 +106,20 @@ public class InternetFragment extends Fragment
             @Override
             public void onClick(View v)
             {
-                FirebaseUser user = mAuth.getCurrentUser();
-                String uid = user.getUid();
-                Internet obj = new Internet(linkName.getText().toString(), linkDescription.getText().toString(), linkInput.getText().toString());
-                internetArrayList.add(obj);
-                internetMap.put(linkName.getText().toString(), obj);
-                db.collection("Users").document(uid).collection("Internet Links").document("Links").set(internetMap);
-                internetRecyclerView.setAdapter(new InternetAdapter(internetArrayList));
+                if(!linkName.getText().toString().equals("") && !linkDescription.getText().toString().equals("") && !linkInput.getText().toString().equals(""))
+                {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    String uid = user.getUid();
+                    Internet obj = new Internet(linkName.getText().toString(), linkDescription.getText().toString(), linkInput.getText().toString());
+                    internetArrayList.add(obj);
+                    internetMap.put(linkName.getText().toString(), obj);
+                    db.collection("Users").document(uid).collection("Internet Links").document("Links").set(internetMap);
+                    internetRecyclerView.setAdapter(new InternetAdapter(internetArrayList));
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "Fill all fields!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -132,7 +139,13 @@ public class InternetFragment extends Fragment
                 String linkForDelete = internetArrayList.get(viewHolder.getAdapterPosition()).getName();
                 internetMap.remove(linkForDelete);
 
-                db.collection("Users").document(uid).collection("Internet Links").document("Links").set(internetMap);
+                db.collection("Users").document(uid).collection("Internet Links").document("Links")
+                        .set(internetMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getActivity(), "Link deleted successfully!", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 internetArrayList = convertHashToArray(internetMap);
                 internetRecyclerView.setAdapter(new InternetAdapter(internetArrayList));
             }
@@ -159,10 +172,10 @@ public class InternetFragment extends Fragment
         });
     }
 
-    public ArrayList<Internet> convertHashToArray(Map<String, Object> a)
+    public ArrayList<Internet> convertHashToArray(Map<String, Object> map)
     {
         ArrayList<Internet> temp = new ArrayList<>();
-        for (Map.Entry<String, Object> entry : a.entrySet())
+        for (Map.Entry<String, Object> entry : map.entrySet())
         {
             Map<String, Object> value = (Map<String, Object>) entry.getValue();
             String name = value.get("name").toString();

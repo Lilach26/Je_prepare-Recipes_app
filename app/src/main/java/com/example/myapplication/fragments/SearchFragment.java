@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.Recipe;
@@ -100,49 +101,49 @@ public class SearchFragment extends Fragment
                 FirebaseUser user = mAuth.getCurrentUser();
                 String uid = user.getUid();
                 String category = categoryInput.getText().toString();
-                CollectionReference reference = db.collection("Users").document(uid).collection(category);
-                reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful())
-                        {
-                            ingredientsForRecipe = new HashMap<>();
-                            for (QueryDocumentSnapshot document : task.getResult())
-                            {
-                                Recipe recipe = document.toObject(Recipe.class);
-                                ingredientsForRecipe.put(recipe.getRecipeName(),recipe.getIngredients());
-                            }
+                if (!category.equals("") && !ingredientsInput.getText().toString().equals("")) {
+                    CollectionReference reference = db.collection("Users").document(uid).collection(category);
+                    reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                ingredientsForRecipe = new HashMap<>();
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Recipe recipe = document.toObject(Recipe.class);
+                                    ingredientsForRecipe.put(recipe.getRecipeName(), recipe.getIngredients());
+                                }
 
-                            String ingredientsStr = ingredientsInput.getText().toString();
-                            String[] arrayOfIngredientsSearch = ingredientsStr.split(",");
-                            ArrayList<String> splitIngredientsSearch = new ArrayList<>();
+                                String ingredientsStr = ingredientsInput.getText().toString();
+                                String[] arrayOfIngredientsSearch = ingredientsStr.split(",");
+                                ArrayList<String> splitIngredientsSearch = new ArrayList<>();
 
-                            for (int i = 0; i < arrayOfIngredientsSearch.length; i++)
-                            {
-                                splitIngredientsSearch.add(arrayOfIngredientsSearch[i]);
-                            }
+                                for (int i = 0; i < arrayOfIngredientsSearch.length; i++) {
+                                    splitIngredientsSearch.add(arrayOfIngredientsSearch[i]);
+                                }
 
-                            boolean flag = false;
-                            resultsTextView.setText("");
-                            for (Map.Entry<String,ArrayList<String>> entry : ingredientsForRecipe.entrySet())
-                            {
-                                ArrayList<String> temp = entry.getValue();
-                                if (temp.retainAll(splitIngredientsSearch))
-                                {
-                                    if (!temp.isEmpty())
-                                    {
-                                        resultsTextView.setText(resultsTextView.getText().toString() + "\n" + entry.getKey());
-                                        flag = true;
+                                boolean flag = false;
+                                resultsTextView.setText("");
+                                for (Map.Entry<String, ArrayList<String>> entry : ingredientsForRecipe.entrySet()) {
+                                    ArrayList<String> ingredientsFromRecipe = entry.getValue();
+                                    //retainAll is intersection , return true\false
+                                    if (ingredientsFromRecipe.retainAll(splitIngredientsSearch)) {
+                                        if (!ingredientsFromRecipe.isEmpty()) {
+                                            resultsTextView.setText(resultsTextView.getText().toString() + "\n" + entry.getKey());
+                                            flag = true;
+                                        }
                                     }
                                 }
-                            }
-                            if (!flag)
-                            {
-                                resultsTextView.setText("not found");
+                                if (!flag) {
+                                    resultsTextView.setText("not found");
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "Fill all fields!",Toast.LENGTH_LONG).show();
+                }
             }
         });
 

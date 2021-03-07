@@ -61,31 +61,39 @@ public class LoginActivity extends AppCompatActivity
         passwordLogin = findViewById(R.id.passwordLogin);
         String password = passwordLogin.getText().toString();
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, (task) -> {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Toast.makeText(LoginActivity.this, "Login success.",
-                                Toast.LENGTH_LONG).show();
-                        FirebaseUser user = mAuth.getCurrentUser();
+        if (!email.equals("") && !password.equals(""))
+        {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, (task) -> {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(LoginActivity.this, "Login success.",
+                                    Toast.LENGTH_LONG).show();
+                            FirebaseUser user = mAuth.getCurrentUser();
 
-                        //shared preference for keeping user logged, even if he closes the application
-                        SharedPreferences sharedPreferences = getSharedPreferences("LOGKEY",0);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("KeyEmail", email);
-                        editor.putString("KeyPassword", password);
-                        editor.apply();
+                            //shared preference for keeping user logged, even if he closes the application
+                            SharedPreferences sharedPreferences = getSharedPreferences("LOGKEY", 0);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("KeyEmail", email);
+                            editor.putString("KeyPassword", password);
+                            editor.apply();
 
-                        //if login success, switch to MainActivity activity
-                        Intent intent = new Intent (LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
+                            //if login success, switch to MainActivity activity
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
 
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(LoginActivity.this, "Login failed!",
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(LoginActivity.this, "Login failed!",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }
+        else
+        {
+            Toast.makeText(LoginActivity.this, "Please fill all fields!",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     //function for clicking the button "Register" in main login, switching the RegisterActivity activity

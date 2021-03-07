@@ -26,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     private EditText emailEditText;
     private  EditText passwordEditText;
+    private  EditText confirmPassEditText;
     private EditText nameEditText;
 
     @Override
@@ -49,33 +50,43 @@ public class RegisterActivity extends AppCompatActivity
         nameEditText = findViewById(R.id.nameEditText);
         String name = nameEditText.getText().toString();
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(RegisterActivity.this, "Register success.",
-                                    Toast.LENGTH_SHORT).show();
+        confirmPassEditText = findViewById(R.id.confirmPassEditText);
+        String confirmPassword = confirmPassEditText.getText().toString();
 
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            String uid = user.getUid();
+        if(!email.equals("") && !password.equals("") && ! confirmPassword.equals(password)) {
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Toast.makeText(RegisterActivity.this, "Register success.",
+                                        Toast.LENGTH_SHORT).show();
 
-                            //get user registration info, save if as person object and push it fire store database
-                            Person person = new Person(name, email);
-                            HashMap<String, Person> map = new HashMap<>();
-                            map.put(uid, person);
-                            db.collection("Users").document(uid).set(map);
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                String uid = user.getUid();
 
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(intent);
+                                //get user registration info, save if as person object and push it fire store database
+                                Person person = new Person(name, email);
+                                HashMap<String, Person> map = new HashMap<>();
+                                map.put(uid, person);
+                                db.collection("Users").document(uid).set(map);
 
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(RegisterActivity.this, "Register failed.",
-                                    Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                startActivity(intent);
+
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(RegisterActivity.this, "Register failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+        }
+        else
+        {
+            Toast.makeText(RegisterActivity.this, "Fill fields / Unmatched passwords",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 }

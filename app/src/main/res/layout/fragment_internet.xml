@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_background"
     tools:context=".fragments.InternetFragment">
 
 
@@ -47,10 +48,14 @@
         android:id="@+id/addLinkButton"
         android:layout_width="53dp"
         android:layout_height="53dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="77dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_style"
         android:text="+"
-        app:layout_constraintStart_toEndOf="@+id/linkDescriptionText"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView

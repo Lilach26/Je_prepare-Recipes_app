@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity
         confirmPassEditText = findViewById(R.id.confirmPassEditText);
         String confirmPassword = confirmPassEditText.getText().toString();
 
-        if(!email.equals("") && !password.equals("") && ! confirmPassword.equals(password)) {
+        if(!email.equals("") && !password.equals("") && confirmPassword.equals(password)) {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -71,7 +71,8 @@ public class RegisterActivity extends AppCompatActivity
                                 HashMap<String, Person> map = new HashMap<>();
                                 map.put(uid, person);
                                 db.collection("Users").document(uid).set(map);
-
+                                db.collection("Users").document(uid).collection("Shopping List").document("Ingredients").set(new HashMap<String,Object>());
+                                db.collection("Users").document(uid).collection("Internet Links").document("Links").set(new HashMap<String,Object>());
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 startActivity(intent);
 

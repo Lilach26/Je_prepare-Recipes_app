@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/main_background"
         android:orientation="vertical"
         tools:context=".fragments.AddRecipeFragment">
 
@@ -18,10 +19,14 @@
             android:layout_width="136dp"
             android:layout_height="58dp"
             android:layout_marginStart="136dp"
-            android:layout_marginTop="572dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/button_style"
             android:text="Add"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/categoryRadioGroup" />
 
         <EditText
             android:id="@+id/recipeNameText"
@@ -31,7 +36,7 @@
             android:layout_marginTop="50dp"
             android:ems="10"
             android:hint="Recipe name"
-            android:inputType="textPersonName"
+            android:inputType="textMultiLine"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +47,7 @@
             android:layout_marginTop="36dp"
             android:ems="10"
             android:hint="Description"
-            android:inputType="textPersonName"
+            android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="@+id/recipeNameText"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/recipeNameText"
@@ -55,7 +60,7 @@
             android:layout_marginTop="36dp"
             android:ems="10"
             android:hint="Ingredients"
-            android:inputType="textPersonName"
+            android:inputType="textMultiLine"
             app:layout_constraintStart_toStartOf="@+id/descriptionText"
             app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
 
@@ -66,7 +71,7 @@
             android:layout_marginTop="24dp"
             android:ems="10"
             android:hint="steps"
-            android:inputType="textPersonName"
+            android:inputType="textMultiLine"
             app:layout_constraintStart_toStartOf="@+id/ingredientsText"
             app:layout_constraintTop_toBottomOf="@+id/ingredientsText" />
 

@@ -34,7 +34,7 @@
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="12dp"
             android:text="Recipes Categories"
-            android:textColor="@color/black"
+            android:textColor="#666868"
             android:textSize="30sp"
             android:textStyle="bold" />
 

@@ -15,7 +15,8 @@
         android:ems="10"
         android:hint="Add ingredients"
         android:inputType="textMultiLine"
-        android:paddingLeft="10dp" />
+        android:paddingLeft="10dp"
+        android:textColor="#000000" />
 
     <Button
         android:id="@+id/addIngredientToListBtn"

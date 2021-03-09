@@ -19,7 +19,7 @@
             android:layout_width="136dp"
             android:layout_height="58dp"
             android:layout_marginStart="136dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/button_style"
             android:text="Add"
             android:textAllCaps="false"
@@ -33,12 +33,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="33dp"
             android:ems="10"
             android:hint="Recipe name"
             android:inputType="textMultiLine"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
         <EditText
             android:id="@+id/descriptionText"
@@ -48,6 +49,7 @@
             android:ems="10"
             android:hint="Description"
             android:inputType="textMultiLine"
+            android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="@+id/recipeNameText"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/recipeNameText"
@@ -61,6 +63,7 @@
             android:ems="10"
             android:hint="Ingredients"
             android:inputType="textMultiLine"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="@+id/descriptionText"
             app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
 
@@ -72,18 +75,19 @@
             android:ems="10"
             android:hint="steps"
             android:inputType="textMultiLine"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="@+id/ingredientsText"
             app:layout_constraintTop_toBottomOf="@+id/ingredientsText" />
 
         <RadioGroup
             android:id="@+id/categoryRadioGroup"
-            android:layout_width="379dp"
-            android:layout_height="198dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="161dp"
+            android:layout_height="194dp"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="15dp"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stepsText">
+            app:layout_constraintTop_toBottomOf="@+id/textView9">
 
             <RadioButton
                 android:id="@+id/beef_button"
@@ -121,6 +125,41 @@
                 android:layout_height="wrap_content"
                 android:text="Desserts" />
         </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
+            android:text="Add Recipe"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="93dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/menu_ic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="108dp"
+            android:layout_marginTop="24dp"
+            android:text="Choose category:"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stepsText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

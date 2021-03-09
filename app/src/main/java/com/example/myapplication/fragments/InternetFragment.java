@@ -115,6 +115,9 @@ public class InternetFragment extends Fragment
                     internetMap.put(linkName.getText().toString(), obj);
                     db.collection("Users").document(uid).collection("Internet Links").document("Links").set(internetMap);
                     internetRecyclerView.setAdapter(new InternetAdapter(internetArrayList));
+                    linkName.setText("");
+                    linkDescription.setText("");
+                    linkInput.setText("");
                 }
                 else
                 {

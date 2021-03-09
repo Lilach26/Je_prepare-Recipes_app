@@ -17,6 +17,7 @@
         android:ems="10"
         android:hint="Recipe name"
         android:inputType="textPersonName"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,6 +30,7 @@
         android:ems="10"
         android:hint="Recipe description"
         android:inputType="textPersonName"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linkNameText" />
 
@@ -41,6 +43,7 @@
         android:ems="10"
         android:hint='URL, "https://" required'
         android:inputType="textPersonName"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linkDescriptionText" />
 

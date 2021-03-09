@@ -144,9 +144,6 @@ public class SearchFragment extends Fragment
                 {
                     Toast.makeText(getActivity(), "Fill all fields!",Toast.LENGTH_LONG).show();
                 }
-
-                //ingredientsInput.setText("");
-                //categoryInput.setText("");
             }
         });
 

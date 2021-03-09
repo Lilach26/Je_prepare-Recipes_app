@@ -14,7 +14,6 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activities.RegisterActivity;
 import com.example.myapplication.model.Recipe;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,7 +32,7 @@ public class AddRecipeFragment extends Fragment
     private FirebaseAuth mAuth;
     private EditText recipeName, ingredients, steps, description;
     private RadioGroup categoryRadioGroup;
-    private RadioButton beef_btn, dairy_btn, fish_btn, traditional_btn, cocktails_btn, desserts_btn;
+    private RadioButton beef_btn, dairy_btn, fish_btn, vegan_btn, cocktails_btn, desserts_btn;
     private String chosenCategory;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -93,7 +92,7 @@ public class AddRecipeFragment extends Fragment
         beef_btn = view.findViewById(R.id.beef_button);
         dairy_btn = view.findViewById(R.id.dairy_button);
         fish_btn = view.findViewById(R.id.fish_button);
-        traditional_btn = view.findViewById(R.id.traditional_button);
+        vegan_btn = view.findViewById(R.id.vegan_button);
         cocktails_btn = view.findViewById(R.id.cocktails_button);
         desserts_btn = view.findViewById(R.id.desserts_button);
 
@@ -112,8 +111,8 @@ public class AddRecipeFragment extends Fragment
                     case R.id.fish_button:
                         chosenCategory = fish_btn.getText().toString();
                         break;
-                    case R.id.traditional_button:
-                        chosenCategory = traditional_btn.getText().toString();
+                    case R.id.vegan_button:
+                        chosenCategory = vegan_btn.getText().toString();
                         break;
                     case R.id.cocktails_button:
                         chosenCategory = cocktails_btn.getText().toString();

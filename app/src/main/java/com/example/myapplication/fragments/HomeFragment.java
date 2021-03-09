@@ -27,7 +27,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private CardView beefCard, dairyCard, fishCard, traditionalCard, cocktailsCard, dessertsCard;
+    private CardView beefCard, dairyCard, fishCard, veganCard, cocktailsCard, dessertsCard;
     private String chosenCard;
 
     // TODO: Rename and change types of parameters
@@ -75,14 +75,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         beefCard = (CardView) view.findViewById(R.id.beef_card);
         dairyCard = (CardView) view.findViewById(R.id.dairy_card);
         fishCard = (CardView) view.findViewById(R.id.fish_card);
-        traditionalCard = (CardView) view.findViewById(R.id.traditional_card);
+        veganCard = (CardView) view.findViewById(R.id.vegan_card);
         cocktailsCard = (CardView) view.findViewById(R.id.cocktails_card);
         dessertsCard = (CardView) view.findViewById(R.id.desserts_card);
 
         beefCard.setOnClickListener(this);
         dairyCard.setOnClickListener(this);
         fishCard.setOnClickListener(this);
-        traditionalCard.setOnClickListener(this);
+        veganCard.setOnClickListener(this);
         cocktailsCard.setOnClickListener(this);
         dessertsCard.setOnClickListener(this);
 
@@ -121,8 +121,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener
             case R.id.fish_card:
                 chosenCard = "Fish";
                 break;
-            case R.id.traditional_card:
-                chosenCard = "Traditional";
+            case R.id.vegan_card:
+                chosenCard = "Vegan";
                 break;
             case R.id.cocktails_card:
                 chosenCard = "Cocktails";

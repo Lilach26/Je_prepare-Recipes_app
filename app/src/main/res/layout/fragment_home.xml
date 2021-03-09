@@ -81,6 +81,7 @@
                         android:layout_height="wrap_content"
                         android:text="Beef"
                         android:textAlignment="center"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -119,6 +120,7 @@
                         android:layout_height="wrap_content"
                         android:text="Dairy"
                         android:textAlignment="center"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -157,6 +159,7 @@
                         android:layout_height="wrap_content"
                         android:text="Fish"
                         android:textAlignment="center"
+                        android:textColor="#000000"
                         android:textSize="20dp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -165,7 +168,7 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/traditional_card"
+                android:id="@+id/vegan_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="1"
@@ -189,13 +192,14 @@
                     <ImageView
                         android:layout_width="67dp"
                         android:layout_height="67dp"
-                        android:src="@drawable/traditional_ic" />
+                        android:src="@drawable/vegan_ic" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Traditional"
+                        android:text="Vegan"
                         android:textAlignment="center"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -219,15 +223,15 @@
                 app:cardElevation="8dp">
 
                 <LinearLayout
-                    android:layout_width="81dp"
-                    android:layout_height="80dp"
+                    android:layout_width="89dp"
+                    android:layout_height="97dp"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="68dp"
-                        android:layout_height="55dp"
+                        android:layout_height="60dp"
                         android:src="@drawable/cocktail_ic" />
 
                     <TextView
@@ -235,6 +239,7 @@
                         android:layout_height="wrap_content"
                         android:text="Cocktails"
                         android:textAlignment="center"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -274,6 +279,7 @@
                         android:layout_height="wrap_content"
                         android:text="Desserts"
                         android:textAlignment="center"
+                        android:textColor="#000000"
                         android:textSize="20dp"
                         android:textStyle="bold" />
                 </LinearLayout>

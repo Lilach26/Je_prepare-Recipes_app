@@ -79,6 +79,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         cocktailsCard = (CardView) view.findViewById(R.id.cocktails_card);
         dessertsCard = (CardView) view.findViewById(R.id.desserts_card);
 
+        //set click listeners for each cardView to figure out which category the user wants to open
         beefCard.setOnClickListener(this);
         dairyCard.setOnClickListener(this);
         fishCard.setOnClickListener(this);
@@ -86,10 +87,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         cocktailsCard.setOnClickListener(this);
         dessertsCard.setOnClickListener(this);
 
+        //Log out button, uses shared preferences remove user's details (which used for keeping him signed in, even if he closes the app)
         logoutButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 //clear all preferences so the user can insert new details
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LOGKEY",0);
                 //sharedPreferences = getSharedPreferences("KeyPassword",0);
@@ -107,6 +109,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         return view;
     }
 
+    //click listener function for the cardView clicks, to store in String variable which category were chosen
     @Override
     public void onClick(View v)
     {
@@ -131,6 +134,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                 chosenCard = "Desserts";
                 break;
         }
+
+        //after we found out which category chosen, we send the information to RecyclerViewActivity class
         Intent intent = new Intent(getActivity(), RecyclerViewActivity.class);
         intent.putExtra("categoryNameKey", chosenCard);
         startActivity(intent);

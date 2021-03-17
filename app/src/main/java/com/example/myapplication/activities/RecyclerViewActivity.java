@@ -96,6 +96,7 @@ public class RecyclerViewActivity extends AppCompatActivity
                         Toast.makeText(RecyclerViewActivity.this, "Recipe deleted successfully", Toast.LENGTH_SHORT).show();
                     }
                 });
+                //notifying adapter for changes and remove the object from the arrayList
                 recipesArrayList.remove(viewHolder.getAdapterPosition());
                 recipeAdapter.notifyDataSetChanged();
             }

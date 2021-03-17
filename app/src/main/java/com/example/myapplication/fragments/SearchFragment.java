@@ -83,8 +83,7 @@ public class SearchFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         ingredientsInput = view.findViewById(R.id.ingredientsSearchInput);
@@ -92,54 +91,79 @@ public class SearchFragment extends Fragment
         searchButton = view.findViewById(R.id.searchButton);
         resultsTextView = view.findViewById(R.id.resultTextView);
 
+        //set click listener for the search button
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
+                //getting current user information
                 db = FirebaseFirestore.getInstance();
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser user = mAuth.getCurrentUser();
                 String uid = user.getUid();
                 String category = categoryInput.getText().toString();
-                if (!category.equals("") && !ingredientsInput.getText().toString().equals("")) {
+
+                //check if all fields were filled
+                if (!category.equals("") && !ingredientsInput.getText().toString().equals(""))
+                {
+                    //create collection reference to store the path of the specific category to search in, then gets all documents int it
                     CollectionReference reference = db.collection("Users").document(uid).collection(category);
-                    reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
+                    {
                         @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
+                        public void onComplete(@NonNull Task<QuerySnapshot> task)
+                        {
+                            if (task.isSuccessful())
+                            {
+                                //iterating over the documents and convert each of them to Recipe's object
                                 ingredientsForRecipe = new HashMap<>();
-                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                for (QueryDocumentSnapshot document : task.getResult())
+                                {
                                     Recipe recipe = document.toObject(Recipe.class);
+                                    //store each recipe's object inside the ingredientsForRecipe hash map
                                     ingredientsForRecipe.put(recipe.getRecipeName(), recipe.getIngredients());
                                 }
 
+                                //getting the ingredients input from user, and split it by ","
                                 String ingredientsStr = ingredientsInput.getText().toString();
                                 String[] arrayOfIngredientsSearch = ingredientsStr.split(",");
                                 ArrayList<String> splitIngredientsSearch = new ArrayList<>();
 
-                                for (int i = 0; i < arrayOfIngredientsSearch.length; i++) {
+                                //add each ingredient to the splitIngredientsSearch array list
+                                for (int i = 0; i < arrayOfIngredientsSearch.length; i++)
+                                {
                                     splitIngredientsSearch.add(arrayOfIngredientsSearch[i]);
                                 }
 
                                 boolean flag = false;
                                 resultsTextView.setText("");
-                                for (Map.Entry<String, ArrayList<String>> entry : ingredientsForRecipe.entrySet()) {
+
+                                //iterating over the Map we created, to check if there are recipes that matches the search
+                                for (Map.Entry<String, ArrayList<String>> entry : ingredientsForRecipe.entrySet())
+                                {
                                     ArrayList<String> ingredientsFromRecipe = entry.getValue();
-                                    //retainAll is intersection , return true\false
-                                    if (ingredientsFromRecipe.retainAll(splitIngredientsSearch)) {
-                                        if (!ingredientsFromRecipe.isEmpty()) {
+                                    //retainAll is intersection, return true\false if there is at least 1 common ingredient
+                                    if (ingredientsFromRecipe.retainAll(splitIngredientsSearch))
+                                    {
+                                        //if we get a match, we will display the recipe, and set flag to "True"
+                                        if (!ingredientsFromRecipe.isEmpty())
+                                        {
                                             resultsTextView.setText(resultsTextView.getText().toString() + "\n" + entry.getKey());
                                             flag = true;
                                         }
                                     }
                                 }
-                                if (!flag) {
-                                    resultsTextView.setText("not found");
+
+                                //if flag is false, there is no recipe that matches the search
+                                if (!flag)
+                                {
+                                    resultsTextView.setText("Not Found");
                                 }
                             }
                         }
                     });
                 }
+
                 else
                 {
                     Toast.makeText(getActivity(), "Fill all fields!",Toast.LENGTH_LONG).show();

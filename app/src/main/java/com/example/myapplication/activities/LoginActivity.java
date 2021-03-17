@@ -91,8 +91,7 @@ public class LoginActivity extends AppCompatActivity
         }
         else
         {
-            Toast.makeText(LoginActivity.this, "Please fill all fields!",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Please fill all fields!", Toast.LENGTH_LONG).show();
         }
     }
 

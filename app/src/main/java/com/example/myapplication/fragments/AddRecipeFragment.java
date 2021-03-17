@@ -96,10 +96,11 @@ public class AddRecipeFragment extends Fragment
         cocktails_btn = view.findViewById(R.id.cocktails_button);
         desserts_btn = view.findViewById(R.id.desserts_button);
 
+        // Set click listener to the radio buttons, then store the chosen category inside String
         categoryRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
                 switch (checkedId)
                 {
                     case R.id.beef_button:
@@ -127,10 +128,12 @@ public class AddRecipeFragment extends Fragment
             }
         });
 
+        //click listener for the add recipe button
         Button addButton = view.findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 FirebaseUser user = mAuth.getCurrentUser();
                 String uid = user.getUid();
                 String ingredientsStr = ingredients.getText().toString();
@@ -140,12 +143,15 @@ public class AddRecipeFragment extends Fragment
                 String descriptionStr = description.getText().toString();
                 String stepsStr = steps.getText().toString();
 
-                if(!recipeNameStr.equals("") && !descriptionStr.equals("") && !stepsStr.equals("") && !ingredientsStr.equals("") && chosenCategory != null)
+                //check if the fields are properly filled
+                if (!recipeNameStr.equals("") && !descriptionStr.equals("") && !stepsStr.equals("") && !ingredientsStr.equals("") && chosenCategory != null)
                 {
+                    //create new recipe's object and store it in the user's data-base
                     Recipe recipe = new Recipe(recipeNameStr, descriptionStr, ingredients, stepsStr, chosenCategory);
                     db.collection("Users").document(uid).collection(chosenCategory).document(recipe.getRecipeName()).set(recipe);
                     Toast.makeText(getActivity(), "Recipe added successfully!", Toast.LENGTH_SHORT).show();
                 }
+
                 else
                 {
                     Toast.makeText(getActivity(), "Fill all fields", Toast.LENGTH_SHORT).show();

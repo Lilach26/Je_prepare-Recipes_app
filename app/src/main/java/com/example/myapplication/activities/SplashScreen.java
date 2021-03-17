@@ -18,7 +18,7 @@ public class SplashScreen extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        //setting splash screen, will disappear after 3000 Millis
+        //setting splash screen, will disappear after 1500 Millis
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run()

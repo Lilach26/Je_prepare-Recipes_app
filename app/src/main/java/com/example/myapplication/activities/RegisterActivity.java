@@ -25,8 +25,8 @@ public class RegisterActivity extends AppCompatActivity
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private EditText emailEditText;
-    private  EditText passwordEditText;
-    private  EditText confirmPassEditText;
+    private EditText passwordEditText;
+    private EditText confirmPassEditText;
     private EditText nameEditText;
 
     @Override
@@ -53,7 +53,8 @@ public class RegisterActivity extends AppCompatActivity
         confirmPassEditText = findViewById(R.id.confirmPassEditText);
         String confirmPassword = confirmPassEditText.getText().toString();
 
-        if(!email.equals("") && !password.equals("") && confirmPassword.equals(password)) {
+        if (!email.equals("") && !password.equals("") && confirmPassword.equals(password))
+        {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -89,5 +90,11 @@ public class RegisterActivity extends AppCompatActivity
             Toast.makeText(RegisterActivity.this, "Fill fields / Unmatched passwords",
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void backToLogin(View view)
+    {
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 }

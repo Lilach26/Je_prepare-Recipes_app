@@ -103,11 +103,15 @@ public class ShoppingFragment extends Fragment
             public void onClick(View v) {
                 FirebaseUser user = mAuth.getCurrentUser();
                 String uid = user.getUid();
+
+                //check if the ingredients's input isn't empty
                 if (!ingredientsInput.getText().toString().equals(""))
                 {
                     ingredientsObj.put(ingredientsInput.getText().toString(), "");
+                    //adding the ingredients to the data base
                     db.collection("Users").document(uid).collection("Shopping List").document("Ingredients").set(ingredientsObj);
                     ingredientsInput.setText("");
+                    //convert the added ingredient from hash map to array list, and notifying adapter for changes
                     ingredientsArrayList = convertHashToArray(ingredientsObj);
                     adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_multiple_choice, ingredientsArrayList);
                     ingredientsListView.setAdapter(adapter);
@@ -127,12 +131,15 @@ public class ShoppingFragment extends Fragment
                 SparseBooleanArray checkedItems = ingredientsListView.getCheckedItemPositions();
                 FirebaseUser user = mAuth.getCurrentUser();
                 String uid = user.getUid();
+                // get how many ingredients we have inside the arrayListView
                 int count = ingredientsListView.getCount();
 
+                //iterating over the ingredients, and check which ingredients was clicked, and accordingly delete it
                 for (int i = 0; i < count; i++)
                 {
                     if (checkedItems.get(i))
                     {
+                        //remove the ingredient from the array list, and data base, and finally notifying adapter for the changes
                         ingredientsObj.remove(ingredientsArrayList.get(i));
                         adapter.remove(ingredientsArrayList.remove(i));
                         db.collection("Users").document(uid).collection("Shopping List").document("Ingredients").set(ingredientsObj);
@@ -150,17 +157,21 @@ public class ShoppingFragment extends Fragment
         return view;
     }
 
+    //This function gets all fields of specific document "Ingredients", to read the data of each HashMap<String, String>'s object
     public void readFromDB()
     {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String uid = user.getUid();
+
+        //getting all fields of the document "Ingredients"
         db.collection("Users").document(uid).collection("Shopping List").document("Ingredients")
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot)
             {
+                //getting data, convert each data to the arrayList, and notify the listView adapter accordingly
                 ingredientsObj = documentSnapshot.getData();
                 ingredientsArrayList = convertHashToArray(ingredientsObj);
                 adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_multiple_choice, ingredientsArrayList);
@@ -170,9 +181,11 @@ public class ShoppingFragment extends Fragment
         });
     }
 
+    //This function gets a map object and convert it to arrayList object
     public ArrayList<String> convertHashToArray(Map<String, Object> map)
     {
         ArrayList<String> temp = new ArrayList<>();
+        //iterating over the map's objects so we can add each of them to the arrayLis, and return it
         for (Map.Entry<String, Object> entry : map.entrySet())
         {
             temp.add(entry.getKey());

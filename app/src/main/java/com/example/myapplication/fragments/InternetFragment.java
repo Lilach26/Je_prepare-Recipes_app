@@ -91,6 +91,7 @@ public class InternetFragment extends Fragment
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_internet, container, false);
         internetMap = new HashMap<>();
+        //read data base from the fire-store
         readFromDB();
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -102,23 +103,31 @@ public class InternetFragment extends Fragment
         linkInput = view.findViewById(R.id.linkInputText);
         addLinkButton = view.findViewById(R.id.addLinkButton);
 
+        //set click listener for the add link button
         addLinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
+                //check if all fields are filled
                 if(!linkName.getText().toString().equals("") && !linkDescription.getText().toString().equals("") && !linkInput.getText().toString().equals(""))
                 {
                     FirebaseUser user = mAuth.getCurrentUser();
                     String uid = user.getUid();
+
+                    //create new object of Internet, and save it into the data base
                     Internet obj = new Internet(linkName.getText().toString(), linkDescription.getText().toString(), linkInput.getText().toString());
                     internetArrayList.add(obj);
                     internetMap.put(linkName.getText().toString(), obj);
                     db.collection("Users").document(uid).collection("Internet Links").document("Links").set(internetMap);
+                    //Notifying adapter for the new link that added
                     internetRecyclerView.setAdapter(new InternetAdapter(internetArrayList));
+
+                    //set the input fields to empty strings
                     linkName.setText("");
                     linkDescription.setText("");
                     linkInput.setText("");
                 }
+
                 else
                 {
                     Toast.makeText(getActivity(), "Fill all fields!", Toast.LENGTH_SHORT).show();
@@ -126,7 +135,7 @@ public class InternetFragment extends Fragment
             }
         });
 
-        //function that deletes item from internet recycler view, and update data inside fire-store db
+        //function that deletes item from internet recycler view, and update data inside fire-store db, onMove irrelevant for us
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -139,9 +148,11 @@ public class InternetFragment extends Fragment
                 FirebaseUser user = mAuth.getCurrentUser();
                 String uid = user.getUid();
 
+                //saving the object to remove inside String object, and remove it from the internet's HashMap
                 String linkForDelete = internetArrayList.get(viewHolder.getAdapterPosition()).getName();
                 internetMap.remove(linkForDelete);
 
+                //setting the new Hash map to the data-base, and make toast message if it succeed
                 db.collection("Users").document(uid).collection("Internet Links").document("Links")
                         .set(internetMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -149,6 +160,7 @@ public class InternetFragment extends Fragment
                         Toast.makeText(getActivity(), "Link deleted successfully!", Toast.LENGTH_SHORT).show();
                     }
                 });
+                //updating the recycler view list accordingly to the delete
                 internetArrayList = convertHashToArray(internetMap);
                 internetRecyclerView.setAdapter(new InternetAdapter(internetArrayList));
             }
@@ -157,17 +169,21 @@ public class InternetFragment extends Fragment
         return view;
     }
 
+    //This function gets all fields of a specific document "Links", to read the data of each Internet's object inside it
     public void readFromDB()
     {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String uid = user.getUid();
+
+        //getting all fields of the document "Links"
         db.collection("Users").document(uid).collection("Internet Links").document("Links")
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot)
             {
+                //getting data, convert each data to the arrayList, and notify the recycler view adapter accordingly
                 internetMap = documentSnapshot.getData();
                 internetArrayList = convertHashToArray(internetMap);
                 internetRecyclerView.setAdapter(new InternetAdapter(internetArrayList));
@@ -175,17 +191,20 @@ public class InternetFragment extends Fragment
         });
     }
 
+    //This function will get a Map and return the same object, converted to arrayList object
     public ArrayList<Internet> convertHashToArray(Map<String, Object> map)
     {
         ArrayList<Internet> temp = new ArrayList<>();
+        //iterating over the map values
         for (Map.Entry<String, Object> entry : map.entrySet())
         {
+            //getting information from each object inside the map, convert it, and add it to the arrayList "temp"
             Map<String, Object> value = (Map<String, Object>) entry.getValue();
             String name = value.get("name").toString();
             String description = value.get("description").toString();
             String url = value.get("url").toString();
-            Internet i = new Internet(name, description, url);
-            temp.add(i);
+            Internet internet = new Internet(name, description, url);
+            temp.add(internet);
         }
         return temp;
     }

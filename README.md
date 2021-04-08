@@ -1,3 +1,4 @@
 # Je Prepare
  
-An Android recipes app, connected to Fire-Store data-base.
+Android recipes app for saving your own recipes, internet recipes, manage shopping list, and searching for recipes by ingredients. 
+Developed in Java, Android Studio and Fire-Store DB.

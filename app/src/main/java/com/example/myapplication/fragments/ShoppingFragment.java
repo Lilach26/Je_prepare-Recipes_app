@@ -34,8 +34,7 @@ import java.util.Map;
  * Use the {@link ShoppingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShoppingFragment extends Fragment
-{
+public class ShoppingFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -105,8 +104,7 @@ public class ShoppingFragment extends Fragment
                 String uid = user.getUid();
 
                 //check if the ingredients's input isn't empty
-                if (!ingredientsInput.getText().toString().equals(""))
-                {
+                if (!ingredientsInput.getText().toString().equals("")) {
                     ingredientsObj.put(ingredientsInput.getText().toString(), "");
                     //adding the ingredients to the data base
                     db.collection("Users").document(uid).collection("Shopping List").document("Ingredients").set(ingredientsObj);
@@ -115,19 +113,17 @@ public class ShoppingFragment extends Fragment
                     ingredientsArrayList = convertHashToArray(ingredientsObj);
                     adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_multiple_choice, ingredientsArrayList);
                     ingredientsListView.setAdapter(adapter);
-                }
-                
-                else
-                {
+                } else {
                     Toast.makeText(getActivity(),"Please input product",Toast.LENGTH_LONG).show();
                 }
             }
         });
 
         //remove items from list view
-        ingredientsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        ingredientsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SparseBooleanArray checkedItems = ingredientsListView.getCheckedItemPositions();
                 FirebaseUser user = mAuth.getCurrentUser();
                 String uid = user.getUid();
@@ -135,10 +131,8 @@ public class ShoppingFragment extends Fragment
                 int count = ingredientsListView.getCount();
 
                 //iterating over the ingredients, and check which ingredients was clicked, and accordingly delete it
-                for (int i = 0; i < count; i++)
-                {
-                    if (checkedItems.get(i))
-                    {
+                for (int i = 0; i < count; i++) {
+                    if (checkedItems.get(i)) {
                         //remove the ingredient from the array list, and data base, and finally notifying adapter for the changes
                         ingredientsObj.remove(ingredientsArrayList.get(i));
                         adapter.remove(ingredientsArrayList.remove(i));
@@ -149,8 +143,6 @@ public class ShoppingFragment extends Fragment
 
                 checkedItems.clear();
                 adapter.notifyDataSetChanged();
-
-                return false;
             }
         });
 
@@ -158,8 +150,7 @@ public class ShoppingFragment extends Fragment
     }
 
     //This function gets all fields of specific document "Ingredients", to read the data of each HashMap<String, String>'s object
-    public void readFromDB()
-    {
+    public void readFromDB() {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -169,8 +160,7 @@ public class ShoppingFragment extends Fragment
         db.collection("Users").document(uid).collection("Shopping List").document("Ingredients")
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot)
-            {
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
                 //getting data, convert each data to the arrayList, and notify the listView adapter accordingly
                 ingredientsObj = documentSnapshot.getData();
                 ingredientsArrayList = convertHashToArray(ingredientsObj);
@@ -182,14 +172,13 @@ public class ShoppingFragment extends Fragment
     }
 
     //This function gets a map object and convert it to arrayList object
-    public ArrayList<String> convertHashToArray(Map<String, Object> map)
-    {
+    public ArrayList<String> convertHashToArray(Map<String, Object> map) {
         ArrayList<String> temp = new ArrayList<>();
         //iterating over the map's objects so we can add each of them to the arrayLis, and return it
-        for (Map.Entry<String, Object> entry : map.entrySet())
-        {
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
             temp.add(entry.getKey());
         }
+
         return temp;
     }
 }

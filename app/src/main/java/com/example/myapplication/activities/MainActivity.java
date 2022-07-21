@@ -16,8 +16,7 @@ import com.example.myapplication.fragments.SearchFragment;
 import com.example.myapplication.fragments.ShoppingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -34,11 +33,9 @@ public class MainActivity extends AppCompatActivity
     //set click listener for which item selected in the bottom navigation view, then begin transaction for specific fragment
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item)
-        {
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selected = null;
-            switch (item.getItemId())
-            {
+            switch (item.getItemId()) {
                 case(R.id.home_item):
                     selected = new HomeFragment();
                     break;
@@ -55,14 +52,14 @@ public class MainActivity extends AppCompatActivity
                     selected = new ShoppingFragment();
                     break;
             }
+
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selected).commit();
             return true;
         }
     };
 
     //LogOut button, switch back to Login page
-    public void switchToLogin()
-    {
+    public void switchToLogin() {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
     }

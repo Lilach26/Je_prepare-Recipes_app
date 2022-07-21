@@ -1,14 +1,12 @@
 package com.example.myapplication.model;
 
-public class Person
-{
+public class Person {
     private String email;
     private String name;
 
     public Person() {}
 
-    public Person(String name, String email)
-    {
+    public Person(String name, String email) {
         this.email = email;
         this.name = name;
     }

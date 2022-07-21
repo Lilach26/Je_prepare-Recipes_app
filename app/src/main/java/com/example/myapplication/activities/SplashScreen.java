@@ -10,8 +10,7 @@ import android.os.Handler;
 
 import com.example.myapplication.R;
 
-public class SplashScreen extends AppCompatActivity
-{
+public class SplashScreen extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +20,7 @@ public class SplashScreen extends AppCompatActivity
         //setting splash screen, will disappear after 1500 Millis
         new Handler().postDelayed(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
                 startActivity(intent);
 

@@ -21,8 +21,7 @@ import com.example.myapplication.activities.RecyclerViewActivity;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements View.OnClickListener
-{
+public class HomeFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -90,8 +89,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         //Log out button, uses shared preferences remove user's details (which used for keeping him signed in, even if he closes the app)
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 //clear all preferences so the user can insert new details
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LOGKEY",0);
                 //sharedPreferences = getSharedPreferences("KeyPassword",0);
@@ -111,10 +109,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
     //click listener function for the cardView clicks, to store in String variable which category were chosen
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.beef_card:
                 chosenCard = "Beef";
                 break;

@@ -36,8 +36,7 @@ import java.util.Map;
  * Use the {@link InternetFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InternetFragment extends Fragment
-{
+public class InternetFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -106,11 +105,9 @@ public class InternetFragment extends Fragment
         //set click listener for the add link button
         addLinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 //check if all fields are filled
-                if(!linkName.getText().toString().equals("") && !linkDescription.getText().toString().equals("") && !linkInput.getText().toString().equals(""))
-                {
+                if(!linkName.getText().toString().equals("") && !linkDescription.getText().toString().equals("") && !linkInput.getText().toString().equals("")) {
                     FirebaseUser user = mAuth.getCurrentUser();
                     String uid = user.getUid();
 
@@ -126,10 +123,7 @@ public class InternetFragment extends Fragment
                     linkName.setText("");
                     linkDescription.setText("");
                     linkInput.setText("");
-                }
-
-                else
-                {
+                } else {
                     Toast.makeText(getActivity(), "Fill all fields!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -143,8 +137,7 @@ public class InternetFragment extends Fragment
             }
 
             @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction)
-            {
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 FirebaseUser user = mAuth.getCurrentUser();
                 String uid = user.getUid();
 
@@ -170,8 +163,7 @@ public class InternetFragment extends Fragment
     }
 
     //This function gets all fields of a specific document "Links", to read the data of each Internet's object inside it
-    public void readFromDB()
-    {
+    public void readFromDB() {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -192,12 +184,10 @@ public class InternetFragment extends Fragment
     }
 
     //This function will get a Map and return the same object, converted to arrayList object
-    public ArrayList<Internet> convertHashToArray(Map<String, Object> map)
-    {
+    public ArrayList<Internet> convertHashToArray(Map<String, Object> map) {
         ArrayList<Internet> temp = new ArrayList<>();
         //iterating over the map values
-        for (Map.Entry<String, Object> entry : map.entrySet())
-        {
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
             //getting information from each object inside the map, convert it, and add it to the arrayList "temp"
             Map<String, Object> value = (Map<String, Object>) entry.getValue();
             String name = value.get("name").toString();
@@ -206,6 +196,7 @@ public class InternetFragment extends Fragment
             Internet internet = new Internet(name, description, url);
             temp.add(internet);
         }
+
         return temp;
     }
 }

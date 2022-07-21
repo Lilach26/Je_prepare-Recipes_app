@@ -1,15 +1,13 @@
 package com.example.myapplication.model;
 
-public class Internet
-{
+public class Internet {
     private String name;
     private String description;
     private String url;
 
     public Internet() {}
 
-    public Internet(String name, String description, String url)
-    {
+    public Internet(String name, String description, String url) {
         this.name = name;
         this.description = description;
         this.url = url;

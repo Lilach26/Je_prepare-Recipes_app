@@ -26,8 +26,7 @@ import java.util.ArrayList;
  * Use the {@link AddRecipeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddRecipeFragment extends Fragment
-{
+public class AddRecipeFragment extends Fragment {
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private EditText recipeName, ingredients, steps, description;
@@ -99,10 +98,8 @@ public class AddRecipeFragment extends Fragment
         // Set click listener to the radio buttons, then store the chosen category inside String
         categoryRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId)
-            {
-                switch (checkedId)
-                {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
                     case R.id.beef_button:
                         chosenCategory = beef_btn.getText().toString();
                         break;
@@ -132,8 +129,7 @@ public class AddRecipeFragment extends Fragment
         Button addButton = view.findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 FirebaseUser user = mAuth.getCurrentUser();
                 String uid = user.getUid();
                 String ingredientsStr = ingredients.getText().toString();
@@ -144,33 +140,29 @@ public class AddRecipeFragment extends Fragment
                 String stepsStr = steps.getText().toString();
 
                 //check if the fields are properly filled
-                if (!recipeNameStr.equals("") && !descriptionStr.equals("") && !stepsStr.equals("") && !ingredientsStr.equals("") && chosenCategory != null)
-                {
+                if (!recipeNameStr.equals("") && !descriptionStr.equals("") && !stepsStr.equals("") && !ingredientsStr.equals("") && chosenCategory != null) {
                     //create new recipe's object and store it in the user's data-base
                     Recipe recipe = new Recipe(recipeNameStr, descriptionStr, ingredients, stepsStr, chosenCategory);
                     db.collection("Users").document(uid).collection(chosenCategory).document(recipe.getRecipeName()).set(recipe);
                     Toast.makeText(getActivity(), "Recipe added successfully!", Toast.LENGTH_SHORT).show();
-                }
-
-                else
-                {
+                } else {
                     Toast.makeText(getActivity(), "Fill all fields", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
         return view;
     }
 
     //this function gets a string of ingredients, separated by "," and insert each element to array list of ingredients
-    public ArrayList<String> splitIngredients(String ingredients)
-    {
+    public ArrayList<String> splitIngredients(String ingredients) {
         String[] arrayOfIngredients = ingredients.split(",");
         ArrayList<String> splitIngredients = new ArrayList<>();
 
-        for (int i = 0; i < arrayOfIngredients.length; i++)
-        {
+        for (int i = 0; i < arrayOfIngredients.length; i++) {
             splitIngredients.add(arrayOfIngredients[i]);
         }
+
         return splitIngredients;
     }
 }

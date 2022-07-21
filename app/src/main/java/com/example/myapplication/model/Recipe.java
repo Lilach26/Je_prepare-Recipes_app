@@ -2,8 +2,7 @@ package com.example.myapplication.model;
 
 import java.util.ArrayList;
 
-public class Recipe
-{
+public class Recipe {
     private String recipeName;
     private String description;
     private ArrayList<String> ingredients;
@@ -12,8 +11,7 @@ public class Recipe
 
     public Recipe() {}
 
-    public Recipe(String recipeName, String description, ArrayList<String> ingredients, String steps, String category)
-    {
+    public Recipe(String recipeName, String description, ArrayList<String> ingredients, String steps, String category) {
         this.recipeName = recipeName;
         this.description = description;
         this.ingredients = ingredients;

@@ -27,8 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewActivity extends AppCompatActivity
-{
+public class RecyclerViewActivity extends AppCompatActivity {
     private String chosenCategory;
     private ArrayList<Recipe> recipesArrayList;
     private RecyclerView recipesRecyclerView;
@@ -61,12 +60,10 @@ public class RecyclerViewActivity extends AppCompatActivity
         db.collection("Users").document(uid).collection(chosenCategory).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots)
-                    {
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         //save list of documents
                         List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                        for (DocumentSnapshot documentSnapshot : list)
-                        {
+                        for (DocumentSnapshot documentSnapshot : list) {
                             //convert each document to recipe object, so we can add it to recipe's arrayList
                             Recipe obj = documentSnapshot.toObject(Recipe.class);
                             recipesArrayList.add(obj);
@@ -84,15 +81,13 @@ public class RecyclerViewActivity extends AppCompatActivity
             }
 
             @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction)
-            {
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 //save the document for delete to string, so we can get to it and delete it
                 String documentForDelete = recipesArrayList.get(viewHolder.getAdapterPosition()).getRecipeName();
                 db.collection("Users").document(uid).collection(chosenCategory).document(documentForDelete)
                         .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(Void aVoid)
-                    {
+                    public void onSuccess(Void aVoid) {
                         Toast.makeText(RecyclerViewActivity.this, "Recipe deleted successfully", Toast.LENGTH_SHORT).show();
                     }
                 });

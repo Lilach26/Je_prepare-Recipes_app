@@ -16,15 +16,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity
-{
+public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText emailLogin;
     private EditText passwordLogin;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -35,8 +33,7 @@ public class LoginActivity extends AppCompatActivity
         //take the file and save in phone
         //sharedPreferences = getPreferences(MODE_PRIVATE);
         SharedPreferences sharedPreferences = getSharedPreferences("LOGKEY",0);
-        if (sharedPreferences.getString("KeyEmail",null) != null)
-        {
+        if (sharedPreferences.getString("KeyEmail",null) != null) {
             // save the last user without Intent
             emailLogin.setText(sharedPreferences.getString("KeyEmail",null));
             passwordLogin.setText(sharedPreferences.getString("KeyPassword",null));
@@ -53,16 +50,14 @@ public class LoginActivity extends AppCompatActivity
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
-    public void LoginFunc(View view)
-    {
+    public void LoginFunc(View view) {
         emailLogin = findViewById(R.id.emailLogin);
         String email = emailLogin.getText().toString();
 
         passwordLogin = findViewById(R.id.passwordLogin);
         String password = passwordLogin.getText().toString();
 
-        if (!email.equals("") && !password.equals(""))
-        {
+        if (!email.equals("") && !password.equals("")) {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, (task) -> {
                         if (task.isSuccessful()) {
@@ -88,16 +83,13 @@ public class LoginActivity extends AppCompatActivity
                                     Toast.LENGTH_LONG).show();
                         }
                     });
-        }
-        else
-        {
+        } else {
             Toast.makeText(LoginActivity.this, "Please fill all fields!", Toast.LENGTH_LONG).show();
         }
     }
 
     //function for clicking the button "Register" in main login, switching the RegisterActivity activity
-    public void MoveToRegister(View view)
-    {
+    public void MoveToRegister(View view) {
         Intent intent = new Intent (LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
     }

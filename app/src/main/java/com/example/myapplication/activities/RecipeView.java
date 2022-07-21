@@ -14,8 +14,7 @@ import com.example.myapplication.model.Internet;
 
 import java.util.ArrayList;
 
-public class RecipeView extends AppCompatActivity
-{
+public class RecipeView extends AppCompatActivity {
     private TextView namePreview, descriptionPreview, ingredientsPreview, stepPreview, categoryPreview;
 
     @Override

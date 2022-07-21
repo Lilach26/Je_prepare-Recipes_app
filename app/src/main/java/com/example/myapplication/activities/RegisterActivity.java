@@ -20,8 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
-public class RegisterActivity extends AppCompatActivity
-{
+public class RegisterActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private EditText emailEditText;
@@ -38,8 +37,7 @@ public class RegisterActivity extends AppCompatActivity
         setContentView(R.layout.activity_register);
     }
 
-    public void RegisterFunc(View view)
-    {
+    public void RegisterFunc(View view) {
         //get input from user, and convert it to string for saving it into objects
         emailEditText = findViewById(R.id.emailEditText);
         String email = emailEditText.getText().toString();
@@ -53,8 +51,7 @@ public class RegisterActivity extends AppCompatActivity
         confirmPassEditText = findViewById(R.id.confirmPassEditText);
         String confirmPassword = confirmPassEditText.getText().toString();
 
-        if (!email.equals("") && !password.equals("") && confirmPassword.equals(password))
-        {
+        if (!email.equals("") && !password.equals("") && confirmPassword.equals(password)) {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -84,16 +81,13 @@ public class RegisterActivity extends AppCompatActivity
                             }
                         }
                     });
-        }
-        else
-        {
+        } else {
             Toast.makeText(RegisterActivity.this, "Fill fields / Unmatched passwords",
                     Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void backToLogin(View view)
-    {
+    public void backToLogin(View view) {
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);
     }

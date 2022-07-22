@@ -137,7 +137,6 @@ public class ShoppingFragment extends Fragment {
                         ingredientsObj.remove(ingredientsArrayList.get(i));
                         adapter.remove(ingredientsArrayList.remove(i));
                         db.collection("Users").document(uid).collection("Shopping List").document("Ingredients").set(ingredientsObj);
-                        Toast.makeText(getActivity(), "Item deleted Successfully", Toast.LENGTH_LONG).show();
                     }
                 }
 
